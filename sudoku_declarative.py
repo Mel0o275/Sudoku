@@ -14,10 +14,16 @@ def solve(grid: Grid) -> List[Grid]:
     row, col = empty
 
     solutions = []
-    for num in range(1, 10):
-        if is_valid(grid, row, col, num):
-            new_grid = update_grid(grid, row, col, num)
-            solutions.extend(solve(new_grid))
+    # for num in range(1, 10):
+    #     if is_valid(grid, row, col, num):
+    #         new_grid = update_grid(grid, row, col, num)
+    #         solutions.extend(solve(new_grid))
+    solutions = sum(
+        [solve(update_grid(grid, row, col, num))
+        for num in range(1, 10)
+        if is_valid(grid, row, col, num)],
+        []
+    )
     return solutions
     
     
