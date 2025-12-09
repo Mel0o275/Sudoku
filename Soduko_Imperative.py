@@ -35,12 +35,26 @@ class Board:
             self.code = None
 
 
+    # def boardToCode(self, input_board=None): # turn a pre-existing board into a code
+    #     if input_board:
+    #         _code = ''.join([str(i) for j in input_board for i in j])
+    #         return _code
+    #     else:
+    #         self.code = ''.join([str(i) for j in self.board for i in j])
+    #         return self.code
+    
     def boardToCode(self, input_board=None): # turn a pre-existing board into a code
         if input_board:
-            _code = ''.join([str(i) for j in input_board for i in j])
+            _code = ""
+            for j in input_board:
+                for i in j:
+                    _code = _code + str(i)
             return _code
         else:
-            self.code = ''.join([str(i) for j in self.board for i in j])
+            self.code = ""
+            for j in self.board:
+                for i in j:
+                    self.code = self.code + str(i)
             return self.code
 
 
