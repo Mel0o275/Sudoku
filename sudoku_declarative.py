@@ -1,5 +1,7 @@
 import random
 from typing import List, Optional, Tuple
+from functools import reduce
+from itertools import chain
 
 Grid = List[List[int]]
 
@@ -9,7 +11,7 @@ def solve(grid: Grid) -> List[Grid]:
 
     empty = find_empty(grid)
     if empty is None:
-        return [grid]  
+        return [grid]
 
     row, col = empty
 
@@ -18,12 +20,19 @@ def solve(grid: Grid) -> List[Grid]:
     #     if is_valid(grid, row, col, num):
     #         new_grid = update_grid(grid, row, col, num)
     #         solutions.extend(solve(new_grid))
-    solutions = sum(
-        [solve(update_grid(grid, row, col, num))
-        for num in range(1, 10)
-        if is_valid(grid, row, col, num)],
-        []
-    )
+    # solutions = sum(
+    #     [solve(update_grid(grid, row, col, num))
+    #     for num in range(1, 10)
+    #     if is_valid(grid, row, col, num)],
+    #     []
+    # )
+    
+
+    solutions = list(chain.from_iterable(
+        map(lambda num: solve(update_grid(grid, row, col, num)),
+            filter(lambda num: is_valid(grid, row, col, num), range(1, 10))
+        )
+    ))
     return solutions
     
     
